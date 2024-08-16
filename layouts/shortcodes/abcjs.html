@@ -1,0 +1,30 @@
+{{ $uniqueId := printf "abcjs-paper-%s" (now.UnixNano | base64Encode) }}
+<div id="{{ $uniqueId }}" class="abcjs-paper"></div>
+<div id="{{ $uniqueId }}-audio"></div>
+
+<script src="/js/abcjs-basic.js" type="text/javascript"></script>
+
+<style>
+    .abcjs-paper {
+        margin-bottom: 1rem;
+    }
+    .abcjs-cursor {
+        stroke: red;
+    }
+    .highlight {
+        fill: #0a9ecc;
+    }
+</style>
+
+<script type="text/javascript">
+  var abcNotation = `
+    {{ .Inner }}
+  `;
+  
+  var abcOptions = {
+    add_classes: true,
+    responsive: "resize"
+  };
+
+  ABCJS.renderAbc("{{ $uniqueId }}", abcNotation, abcOptions);
+</script>
